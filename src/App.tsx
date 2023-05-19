@@ -1,17 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { ZodiacConnextWidget } from "crosschain-widget";
 import { providers } from "ethers";
 
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-
-import './App.css'
+import "./App.css";
 
 function App() {
-  const [tx, setTx] = useState("");
-  const [userAddress, setUserAddress] = useState("");
   const [useLightTheme, setUseLightTheme] = useState(false);
+  const [userAddress, setUserAddress] = useState("");
   const [userChainId, setUserChainId] = useState(1);
+  const [tx, setTx] = useState("");
   const [signer, setSigner] = useState<providers.JsonRpcSigner | undefined>();
   const [provider, setProvider] = useState<
     providers.JsonRpcProvider | undefined
@@ -21,66 +18,80 @@ function App() {
     if (window?.ethereum) {
       const provider = new providers.Web3Provider(window.ethereum);
       await provider.send("eth_requestAccounts", []);
-      setSigner(provider.getSigner());
+
+      const signer = provider.getSigner();
+      const address = (await signer.getAddress()) || "";
+      const chainId = (await signer.getChainId()) || 1;
+      setSigner(signer);
       setProvider(provider);
+      setUserChainId(chainId);
+      setUserAddress(address);
     }
   };
 
-  useEffect(() => {
-    signer?.getAddress().then((address) => {
-      setUserAddress(address);
-    });
+  const detectChainChange = async () => {
+    window?.ethereum.on("chainChanged", handleConnect);
+  };
 
-    signer?.getChainId().then((chainId) => {
-      setUserChainId(chainId);
-    });
-  }, [signer]);
+  useEffect(() => {
+    detectChainChange();
+    return () => {
+      window.ethereum.removeListener("chainChanged", handleConnect);
+    };
+  }, []);
+
+  // autoconnect on load
+  useEffect(() => {
+    handleConnect();
+  }, []);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h3>Crosschain Widget Example</h3>
-      
-      <div className="card">
-        <button onClick={() => handleConnect()}>Connect</button><br /><br />
+      <h1>Crosschain Widget Example</h1>
 
+      <div className="card">
+        <button onClick={() => handleConnect()}>Connect</button>
         <button onClick={() => setUseLightTheme(!useLightTheme)}>
           Light theme: {useLightTheme.toString()}
-        </button> <br /><br />
-
-        <label>User Address: {userAddress}</label> <br />
-        <label>Origin chain Id: {userChainId}</label> <br /><br />
-
-        {userAddress && userChainId && 
-        <ZodiacConnextWidget 
-          originAddress={userAddress}
-          userChainId={420}
-          text="Open crosschain widget"
-          modal={false}
-          setTx={setTx}
-          lightTheme={useLightTheme}
-        />}
-        
+        </button>
         <br />
-
-        {userAddress && userChainId && 
+        <br />
+        <label>User Address: {userAddress}</label> <br />
+        <label>Origin chain Id: {userChainId}</label> <br />
+        <br />
+        {userAddress && userChainId && (
+          <ZodiacConnextWidget
+            originAddress={userAddress}
+            userChainId={420}
+            text="Open crosschain widget"
+            modal={false}
+            setTx={setTx}
+            provider={provider}
+            lightTheme={useLightTheme}
+          />
+        )}
+        <br />
+        <br />
         <textarea
           value={tx}
           onChange={(e) => setTx(e.target.value)}
           style={{ width: 500, height: 250 }}
           placeholder="{value: string; to: string; from: string; data: string;}"
-        />}
-
+        />
+        <br />
+        {tx && (
+          <button
+            onClick={() => {
+              signer?.sendTransaction(JSON.parse(tx));
+            }}
+          >
+            Send tx
+          </button>
+        )}
+        <br />
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
