@@ -62,7 +62,7 @@ function App() {
         {userAddress && userChainId && (
           <ZodiacConnextWidget
             originAddress={userAddress}
-            userChainId={420}
+            userChainId={userChainId}
             text="Open crosschain widget"
             modal={false}
             setTx={setTx}

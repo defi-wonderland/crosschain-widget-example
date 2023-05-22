@@ -1342,10 +1342,10 @@ cross-spawn@^7.0.2:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
-crosschain-widget@0.0.0-a1ac9022:
-  version "0.0.0-a1ac9022"
-  resolved "https://registry.npmjs.org/crosschain-widget/-/crosschain-widget-0.0.0-a1ac9022.tgz#afa90ca0074ac592d3d7fb449e660030792c48a8"
-  integrity sha512-9fVxN5Iz3FIuEa89CWv5EIK2QF0DC/8oANe4oZbHN8GkXMqskXLp0BezZ0t3U5IuYkjjhWt4DfvtXt6txTBMWw==
+crosschain-widget@0.0.0-f26d2cbb:
+  version "0.0.0-f26d2cbb"
+  resolved "https://registry.npmjs.org/crosschain-widget/-/crosschain-widget-0.0.0-f26d2cbb.tgz#448c4bed87b39266a03a03b537d7bfa706a57414"
+  integrity sha512-7xr/rZDqBv0MSZ3OdTn4W7NC5S2lGNTTtsgWwgGpT81qDSpNp+O+XLQMrCsa4nCrogbt7iWEr2VgsEVH2TzMLw==
   dependencies:
     ethers "5.6.8"
     react-transition-group "4.4.5"
