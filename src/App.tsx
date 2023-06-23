@@ -8,6 +8,7 @@ function App() {
   const [useLightTheme, setUseLightTheme] = useState(false);
   const [userAddress, setUserAddress] = useState("");
   const [userChainId, setUserChainId] = useState(1);
+  const [useTestnet, setUseTestnet] = useState(true);
   const [tx, setTx] = useState("");
   const [signer, setSigner] = useState<providers.JsonRpcSigner | undefined>();
   const [provider, setProvider] = useState<
@@ -54,6 +55,9 @@ function App() {
         <button onClick={() => setUseLightTheme(!useLightTheme)}>
           Light theme: {useLightTheme.toString()}
         </button>
+        <button onClick={() => setUseTestnet(!useTestnet)}>
+          Testnet: {useTestnet.toString()}
+        </button>
         <br />
         <br />
         <label>User Address: {userAddress}</label> <br />
@@ -68,6 +72,7 @@ function App() {
             setTx={setTx}
             provider={provider}
             lightTheme={useLightTheme}
+            testnet={useTestnet}
           />
         )}
         <br />
