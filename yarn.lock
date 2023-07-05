@@ -2744,10 +2744,10 @@ cross-spawn@^7.0.2:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
-crosschain-widget@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/crosschain-widget/-/crosschain-widget-1.0.1.tgz#1d5611b6d42dddc0e75599d4c86e7da7c66c754b"
-  integrity sha512-ANO74M+CwIj8zs0I1TTZgsbBzS68Zl6eKn/9ejxIdsFZWkmr0Xiqu1NJDtciG9ac7F2U+U9eZyG79Dg5QicGRw==
+crosschain-widget@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/crosschain-widget/-/crosschain-widget-1.1.0.tgz#bc1f4b9bcfd84ed07a2e9e47ef819ae02a2985a3"
+  integrity sha512-YHb92cUIRd9PIwiEbBPXF76acmYg+U586S6tkehq99tvj1nGv/186hzLjGuq5N7gD8dpMKrDsg5OQxOPfAb35A==
   dependencies:
     "@connext/nxtp-txservice" "2.0.0-alpha.1"
     "@connext/nxtp-utils" "2.0.1"
